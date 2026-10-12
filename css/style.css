@@ -1,0 +1,611 @@
+/* ==========================================================
+   FINCUX - Hoja de estilos global
+   Paleta: verde, crema, terracota y marrón.
+   Tipografía: Inter (textos, botones, navegación) y Gloock (títulos).
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Gloock&display=swap');
+
+/* -------------------- Variables -------------------- */
+:root {
+  --color-earth: #4a5e3a;       /* Verde principal */
+  --color-earth-dark: #364530;  /* Verde oscuro (hover) */
+  --color-terra: #c8622a;       /* Terracota: único color de acento */
+  --color-terra-dark: #a8501f;  /* Terracota oscuro (hover, errores) */
+  --color-cream: #f5f0e8;       /* Fondo general */
+  --color-cream-dark: #ede5d4;  /* Fondo de secciones alternas */
+  --color-sand: #d4c4a0;        /* Bordes / placeholders */
+  --color-bark: #2c2416;        /* Texto oscuro / footer */
+  --color-text: #5a4a36;        /* Texto de párrafo */
+  --color-text-light: #8a7a66;  /* Texto secundario */
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-serif: 'Gloock', Georgia, serif;
+
+  --radius: 6px;
+  --max-width: 1152px;
+}
+
+/* -------------------- Reset básico -------------------- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-cream);
+  color: var(--color-bark);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; }
+
+:focus-visible {
+  outline: 2px solid var(--color-earth);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* -------------------- Botones -------------------- */
+.btn {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.9rem 1.6rem;
+  border-radius: var(--radius);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+  text-align: center;
+}
+
+.btn-primary { background-color: var(--color-earth); color: var(--color-cream); }
+.btn-primary:hover { background-color: var(--color-earth-dark); }
+
+.btn-secondary {
+  background-color: transparent;
+  border: 2px solid var(--color-earth);
+  color: var(--color-earth);
+}
+.btn-secondary:hover { background-color: rgba(74, 94, 58, 0.08); }
+
+.btn-accent { background-color: var(--color-terra); color: #fff; }
+.btn-accent:hover { background-color: var(--color-terra-dark); }
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background-color: var(--color-cream);
+  border-bottom: 1px solid rgba(212, 196, 160, 0.8);
+}
+
+.header-inner {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo { display: flex; align-items: center; gap: 0.5rem; }
+
+.logo-img {
+  height: 36px;
+  width: auto;
+  border-radius: var(--radius);
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.footer-about .logo-img { height: 32px; }
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-bark);
+  letter-spacing: -0.02em;
+}
+
+.nav-desktop { display: none; align-items: center; gap: 0.25rem; }
+
+.nav-desktop a {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  transition: background-color 0.2s, color 0.2s;
+}
+.nav-desktop a:hover { color: var(--color-earth); background-color: rgba(74, 94, 58, 0.06); }
+.nav-desktop a.active { color: var(--color-earth); background-color: rgba(74, 94, 58, 0.12); }
+
+.header-actions { display: none; align-items: center; gap: 0.75rem; }
+
+.btn-login {
+  background: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-earth);
+  padding: 0.5rem 0.75rem;
+}
+/* "Iniciar sesión" aún no existe: se muestra deshabilitado */
+.btn-login:disabled {
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
+
+.btn-publish {
+  font-size: 0.9rem;
+  padding: 0.6rem 1.15rem;
+}
+
+/* Botón hamburguesa (solo móvil) */
+.hamburger {
+  background: none;
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  color: var(--color-earth);
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 2px;
+  margin: 5px 0;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* Menú móvil desplegable */
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  border-top: 1px solid rgba(212, 196, 160, 0.6);
+  background-color: var(--color-cream);
+  padding: 0.75rem 1.5rem 1.25rem;
+}
+.nav-mobile.open { display: flex; }
+
+.nav-mobile a {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text);
+  padding: 0.75rem;
+  border-radius: var(--radius);
+}
+.nav-mobile a.active { color: var(--color-earth); background-color: rgba(74, 94, 58, 0.12); }
+
+.nav-mobile-actions { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem; }
+.nav-mobile-actions .btn { width: 100%; padding: 0.8rem; }
+.nav-mobile-actions .btn:disabled {
+  border-color: var(--color-sand);
+  color: var(--color-text-light);
+  cursor: not-allowed;
+}
+.nav-mobile-actions .btn-accent { color: #fff; }
+
+@media (min-width: 768px) {
+  .nav-desktop, .header-actions { display: flex; }
+  .hamburger, .nav-mobile { display: none !important; }
+}
+
+/* ==========================================================
+   HERO (Inicio)
+   ========================================================== */
+.hero { padding-block: 3rem; }
+
+.hero-grid { display: grid; gap: 2rem; align-items: center; }
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--color-bark);
+  margin-bottom: 1.1rem;
+}
+.hero-title .highlight { color: var(--color-earth-dark); }
+
+.hero-text {
+  font-size: 1.05rem;
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 30rem;
+  margin-bottom: 1.75rem;
+}
+
+.hero-buttons { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.hero-image {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background-color: var(--color-sand);
+}
+.hero-image img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+
+@media (min-width: 768px) {
+  .hero { padding-block: 4rem; }
+  .hero-grid { grid-template-columns: 1fr 1.05fr; gap: 3.5rem; }
+  .hero-title { font-size: 3rem; }
+  .hero-buttons { flex-direction: row; }
+  .hero-image { aspect-ratio: 5 / 4; }
+}
+
+/* ==========================================================
+   SECCIONES GENERALES
+   ========================================================== */
+.section { padding-block: 3.5rem; }
+.section-alt { background-color: var(--color-cream-dark); }
+
+.section-header { margin-bottom: 2.25rem; }
+.section-header h2,
+.products-top h2 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--color-bark);
+}
+
+/* ==========================================================
+   CÓMO FUNCIONA (pasos numerados)
+   ========================================================== */
+.steps-row { display: grid; gap: 1.75rem; }
+
+.step { padding-top: 1.25rem; border-top: 2px solid var(--color-sand); }
+
+.step-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-terra);
+  margin-bottom: 0.35rem;
+}
+
+.step h3 { font-size: 1.05rem; font-weight: 800; color: var(--color-bark); margin-bottom: 0.4rem; }
+.step p { font-size: 0.95rem; color: var(--color-text); font-weight: 500; line-height: 1.55; max-width: 24rem; }
+
+@media (min-width: 640px) {
+  .steps-row { grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+}
+
+/* ==========================================================
+   TARJETAS DE PRODUCTO
+   ========================================================== */
+.products-top { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+
+.link-underline {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-earth);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.products-grid { display: grid; gap: 1.25rem; }
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(212, 196, 160, 0.6);
+}
+
+.product-card .product-img { display: block; aspect-ratio: 16 / 10; background-color: var(--color-sand); overflow: hidden; }
+.product-card .product-img img { width: 100%; height: 100%; object-fit: cover; }
+
+.product-body { display: flex; flex-direction: column; flex: 1; padding: 1rem 1.1rem 1.1rem; }
+
+.product-body h3 { font-size: 1.1rem; font-weight: 800; color: var(--color-bark); }
+
+.product-price { margin-top: 0.15rem; font-size: 1.15rem; font-weight: 800; color: var(--color-terra-dark); }
+.product-price span { font-size: 0.9rem; font-weight: 600; color: var(--color-text); }
+
+.product-meta { margin-top: 0.35rem; font-size: 0.88rem; color: var(--color-text); font-weight: 600; }
+
+.btn-card { margin-top: auto; align-self: stretch; padding: 0.65rem 1rem; font-size: 0.95rem; }
+.product-meta + .btn-card { margin-top: 1rem; }
+
+.products-cta { text-align: center; margin-top: 2.25rem; }
+
+@media (min-width: 640px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-top { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+}
+@media (min-width: 1024px) {
+  .products-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ==========================================================
+   BANNER CTA
+   ========================================================== */
+.cta-banner {
+  background-color: var(--color-earth);
+  border-radius: var(--radius);
+  padding: 2.25rem 1.5rem;
+}
+
+.cta-banner h2 {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--color-cream);
+  margin-bottom: 0.6rem;
+}
+
+.cta-banner p { color: #d3e0c6; font-weight: 500; max-width: 34rem; margin-bottom: 1.5rem; }
+
+.cta-buttons { display: flex; flex-direction: column; gap: 0.75rem; }
+.cta-buttons .btn-secondary { border-color: rgba(211, 224, 198, 0.6); color: var(--color-cream); }
+
+@media (min-width: 640px) {
+  .cta-banner { padding: 2.5rem 2.5rem; }
+  .cta-buttons { flex-direction: row; }
+}
+
+/* ==========================================================
+   ENCABEZADO DE PÁGINAS INTERNAS
+   ========================================================== */
+.page-header { padding-block: 2.5rem 1.5rem; }
+
+.page-header h1 {
+  font-family: var(--font-serif);
+  font-size: 2.1rem;
+  font-weight: 400;
+  color: var(--color-bark);
+  margin-bottom: 0.5rem;
+}
+
+.page-header p { color: var(--color-text); font-weight: 500; max-width: 38rem; line-height: 1.6; }
+
+@media (min-width: 768px) {
+  .page-header { padding-block: 3.5rem 2rem; }
+  .page-header h1 { font-size: 2.6rem; }
+}
+
+/* ==========================================================
+   CATÁLOGO: contador, estado vacío
+   ========================================================== */
+.results-count { font-size: 0.9rem; font-weight: 600; color: var(--color-text); margin: 1.25rem 0 1rem; }
+
+.catalog-note { font-size: 0.85rem; color: var(--color-text); margin-top: 1.5rem; max-width: 40rem; }
+
+.empty-state { padding: 2.5rem 0; color: var(--color-text); font-weight: 600; }
+.empty-state .btn { margin-top: 1rem; }
+
+[hidden] { display: none !important; }
+
+/* ==========================================================
+   DETALLE DE PRODUCTO
+   ========================================================== */
+.detail-wrap { padding-top: 2rem; padding-bottom: 3.5rem; }
+
+.back-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-earth);
+  margin-bottom: 1.5rem;
+}
+.back-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+.detail-grid { display: grid; gap: 2rem; }
+
+.detail-image { aspect-ratio: 4 / 3; border-radius: var(--radius); overflow: hidden; background-color: var(--color-sand); }
+.detail-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.detail-info h1 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.detail-price { font-size: 1.75rem; font-weight: 800; color: var(--color-terra-dark); margin-bottom: 1rem; }
+.detail-price span { font-size: 1rem; font-weight: 600; color: var(--color-text); }
+
+.detail-meta-list { max-width: 28rem; margin-bottom: 1.75rem; border-top: 1px solid rgba(212, 196, 160, 0.8); }
+.detail-meta-list li { padding: 0.6rem 0; border-bottom: 1px solid rgba(212, 196, 160, 0.8); font-size: 0.95rem; color: var(--color-text); }
+.detail-meta-list strong { color: var(--color-bark); }
+
+.detail-contact-btn { display: block; width: 100%; max-width: 28rem; padding: 1.05rem 1.5rem; font-size: 1.1rem; }
+
+@media (min-width: 768px) {
+  .detail-grid { grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: start; }
+  .detail-info h1 { font-size: 2.4rem; }
+}
+
+/* ==========================================================
+   CONTACTO
+   ========================================================== */
+.contact-wrap { display: grid; gap: 2.5rem; padding-bottom: 4rem; }
+.contact-form { max-width: 40rem; }
+
+.form-notice {
+  border-left: 3px solid var(--color-terra);
+  background-color: var(--color-cream-dark);
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.form-field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 1rem; }
+
+.form-field label { font-size: 0.9rem; font-weight: 700; color: var(--color-bark); }
+
+.form-field input,
+.form-field textarea {
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-bark);
+  background-color: #fff;
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius);
+  padding: 0.7rem 0.8rem;
+  width: 100%;
+}
+.form-field textarea { resize: vertical; min-height: 8rem; }
+
+.form-field input:focus,
+.form-field textarea:focus { outline: 2px solid var(--color-earth); outline-offset: 0; border-color: var(--color-earth); }
+
+.form-field input.invalid,
+.form-field textarea.invalid { border-color: var(--color-terra-dark); }
+
+.form-error { font-size: 0.8rem; font-weight: 600; color: var(--color-terra-dark); min-height: 1.1em; }
+
+.form-row { display: grid; gap: 0; }
+
+.form-submit { margin-top: 0.5rem; width: 100%; }
+
+.form-success {
+  margin-top: 1.25rem;
+  border-left: 3px solid var(--color-earth);
+  background-color: var(--color-cream-dark);
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  color: var(--color-bark);
+}
+
+.contact-info-item { padding: 1rem 0; border-top: 1px solid rgba(212, 196, 160, 0.8); }
+.contact-info-item:first-child { border-top: none; padding-top: 0; }
+.contact-info-item h3 { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-earth); margin-bottom: 0.25rem; }
+.contact-info-item p { color: var(--color-text); font-weight: 500; font-size: 0.95rem; }
+
+@media (min-width: 640px) {
+  .form-row { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .form-submit { width: auto; }
+}
+@media (min-width: 900px) {
+  .contact-wrap { grid-template-columns: 1.5fr 1fr; gap: 4rem; }
+}
+
+/* ==========================================================
+   INFORMACIÓN
+   ========================================================== */
+.inf-hero { display: grid; gap: 2rem; align-items: center; padding-block: 2.5rem 3.5rem; }
+
+.inf-hero h1 {
+  font-family: var(--font-serif);
+  font-size: 2.3rem;
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+}
+.inf-lead { font-size: 1.2rem; line-height: 1.55; font-weight: 600; color: var(--color-bark); margin-bottom: 1rem; }
+.inf-hero-text p { color: var(--color-text); font-weight: 500; line-height: 1.7; max-width: 34rem; }
+.inf-hero-text .inf-lead { color: var(--color-bark); }
+
+.inf-photo {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  border-radius: 10px;
+  background-color: var(--color-sand);
+  box-shadow: 10px 10px 0 var(--color-cream-dark);
+}
+.inf-photo img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+.inf-band { background-color: var(--color-cream-dark); padding-block: 3.5rem; }
+
+.inf-block { padding-block: 3rem 0.5rem; }
+.inf-block:last-of-type { padding-bottom: 4rem; }
+
+.inf-band h2,
+.inf-block h2 { font-family: var(--font-serif); font-size: 1.65rem; font-weight: 400; margin-bottom: 1.5rem; }
+
+.inf-two { display: grid; gap: 1.75rem; }
+.inf-two h3 { font-size: 1.05rem; font-weight: 800; color: var(--color-bark); margin-bottom: 0.4rem; }
+.inf-two p { color: var(--color-text); font-weight: 500; line-height: 1.7; max-width: 30rem; }
+
+.inf-card { background: #fff; border: 1px solid rgba(212, 196, 160, 0.7); border-radius: var(--radius); padding: 1.4rem 1.5rem; }
+.inf-card ul li { position: relative; padding: 0.35rem 0 0.35rem 1.4rem; color: var(--color-text); font-weight: 500; line-height: 1.55; }
+.inf-card ul li::before { position: absolute; left: 0; top: 0.35rem; font-weight: 800; }
+.inf-yes { border-top: 4px solid var(--color-earth); }
+.inf-yes li::before { content: "✓"; color: var(--color-earth); }
+.inf-no { border-top: 4px solid var(--color-sand); }
+.inf-no li::before { content: "–"; color: var(--color-text-light); }
+
+.inf-who { padding-top: 1rem; border-top: 2px solid var(--color-sand); }
+
+.inf-status {
+  border-left: 3px solid var(--color-terra);
+  background-color: var(--color-cream-dark);
+  padding: 0.9rem 1.1rem;
+  max-width: 40rem;
+  color: var(--color-text);
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.inf-end { margin-top: 2.5rem; }
+.inf-end p { font-family: var(--font-serif); font-weight: 400; font-size: 1.4rem; line-height: 1.3; margin-bottom: 1.1rem; max-width: 26rem; }
+
+@media (min-width: 768px) {
+  .inf-hero { grid-template-columns: 1.05fr 1fr; gap: 4rem; padding-block: 3.5rem 4.5rem; }
+  .inf-hero h1 { font-size: 3rem; }
+  .inf-two { grid-template-columns: 1fr 1fr; gap: 3rem; }
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+.site-footer { background-color: var(--color-bark); color: var(--color-sand); }
+
+.footer-inner { padding-block: 3rem 2rem; }
+
+.footer-grid { display: grid; gap: 2rem; margin-bottom: 2rem; }
+
+.footer-about .logo-text { color: var(--color-cream); }
+.footer-about p { font-size: 0.9rem; color: #b5a58d; line-height: 1.6; margin-top: 1rem; max-width: 24rem; }
+
+.footer-col p.title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-cream);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.9rem;
+}
+
+.footer-col ul { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.footer-col a,
+.footer-contact li { font-size: 0.9rem; color: #b5a58d; font-weight: 500; }
+.footer-col a:hover { color: var(--color-cream); }
+
+.footer-bottom {
+  border-top: 1px solid #3d3020;
+  padding-top: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #9a8a72;
+}
+
+@media (min-width: 640px) {
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; }
+  .footer-bottom { flex-direction: row; justify-content: space-between; }
+}
